@@ -15,7 +15,7 @@ public class FoodItemServImp implements FoodItemService {
     private FoodItemRepo foodItemRepo;
     @Override
     public FoodItem save(FoodItemModel foodItemModel) {
-        FoodItem foodItem= new FoodItem(new FoodItemId(foodItemModel.getItem(),foodItemModel.getRest_id()),foodItemModel.getPrice(),foodItemModel.getDescription(),foodItemModel.getImg_url());
+        FoodItem foodItem= new FoodItem(new FoodItemId(foodItemModel.getItem(),foodItemModel.getRest_id()),foodItemModel.getRest_name(),foodItemModel.getPrice(),foodItemModel.getDescription(),foodItemModel.getImg_url());
         return foodItemRepo.save(foodItem);
     }
 }

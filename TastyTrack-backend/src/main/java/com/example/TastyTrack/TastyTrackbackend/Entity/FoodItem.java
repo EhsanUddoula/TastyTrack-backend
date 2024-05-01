@@ -17,6 +17,8 @@ public class FoodItem {
     @EmbeddedId
     private FoodItemId foodItemId;
 
+    @Column(nullable = false)
+    private String rest_name;
     private Double price;
     private String description;
     private String img_url;
