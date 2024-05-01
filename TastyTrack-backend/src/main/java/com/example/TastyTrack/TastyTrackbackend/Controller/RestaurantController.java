@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/restaurant/")
 public class RestaurantController {
@@ -34,6 +36,28 @@ public class RestaurantController {
             return ResponseEntity.ok(restaurant); // Return 200 OK with the restaurant data
         } else {
             return ResponseEntity.notFound().build();// Return 404 Not Found if restaurant not found
+        }
+    }
+
+    @GetMapping("/search/{name}")
+    public  ResponseEntity<List<RestaurantModel>> searchRestaurant(@PathVariable String name){
+        List<RestaurantModel> restaurantModels= restaurantService.getRestaurantByName(name);
+
+        if(restaurantModels != null){
+            return ResponseEntity.ok(restaurantModels);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Restaurant> updateRest(@PathVariable Long id, @RequestBody RestaurantModel restaurantModel){
+        Restaurant restaurant1= restaurantService.updateRestaurant(id,restaurantModel);
+
+        if(restaurant1 != null){
+            return ResponseEntity.ok(restaurant1);
+        }else{
+            return ResponseEntity.notFound().build();
         }
     }
 }

@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class RestServiceImp implements RestaurantService {
 
@@ -32,5 +36,39 @@ public class RestServiceImp implements RestaurantService {
         BeanUtils.copyProperties(restaurant,restaurantModel);
 
         return restaurantModel;
+    }
+
+    @Override
+    public List<RestaurantModel> getRestaurantByName(String name) {
+        List<Restaurant> restaurants= restaurantRepo.findByNameLike("%"+name+"%");
+        List<RestaurantModel> restaurantModels= new ArrayList<>();
+
+        for( Restaurant restaurant: restaurants){
+            RestaurantModel model= new RestaurantModel();
+            BeanUtils.copyProperties(restaurant,model);
+
+            restaurantModels.add(model);
+        }
+
+        return restaurantModels;
+    }
+
+    @Override
+    public Restaurant updateRestaurant(long id, RestaurantModel model) {
+        Optional<Restaurant> restaurant= restaurantRepo.findById(id);
+        if(restaurant.isEmpty()){
+            return null;
+        }
+        Restaurant updatedRestaurant= restaurant.get();
+
+        updatedRestaurant.setAddress(model.getAddress());
+        updatedRestaurant.setDescription(model.getDescription());
+        updatedRestaurant.setImg_url(model.getImg_url());
+        updatedRestaurant.setName(model.getName());
+        updatedRestaurant.setEmail(model.getEmail());
+        updatedRestaurant.setPhone(model.getPhone());
+        updatedRestaurant.setPassword(passwordEncoder.encode(model.getPassword()));
+
+        return restaurantRepo.save(updatedRestaurant);
     }
 }
