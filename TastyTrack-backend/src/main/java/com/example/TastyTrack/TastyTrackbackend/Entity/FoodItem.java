@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name= "Food_Item")
 @AllArgsConstructor
@@ -23,10 +26,20 @@ public class FoodItem {
     private String description;
     private String img_url;
 
+    public FoodItem(FoodItemId foodItemId, String rest_name, Double price, String description, String img_url) {
+        this.foodItemId = foodItemId;
+        this.rest_name = rest_name;
+        this.price = price;
+        this.description = description;
+        this.img_url = img_url;
+    }
 //    @ManyToMany
 //    private List<Restaurant> restaurantList=new ArrayList<>();
 
 //    @ManyToOne
 //    private Restaurant restaurant;
+
+    @OneToMany(mappedBy = "foodItemId",cascade = CascadeType.ALL)
+    private List<Favourites> favourites=new ArrayList<>();
 }
 

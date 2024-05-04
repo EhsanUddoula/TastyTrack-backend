@@ -10,7 +10,9 @@ import org.springframework.boot.context.config.ConfigDataResourceNotFoundExcepti
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,11 +22,14 @@ public class FoodItemServImp implements FoodItemService {
 
     @Autowired
     private FoodItemRepo foodItemRepo;
+
     @Override
     public FoodItem save(FoodItemModel foodItemModel) {
         FoodItem foodItem= new FoodItem(new FoodItemId(foodItemModel.getItem(),foodItemModel.getRest_id()),foodItemModel.getRest_name(),foodItemModel.getPrice(),foodItemModel.getDescription(),foodItemModel.getImg_url());
+
         return foodItemRepo.save(foodItem);
     }
+
 
     @Override
     public List<FoodItemModel> getAllFood() {
@@ -93,6 +98,11 @@ public class FoodItemServImp implements FoodItemService {
         }
 
         foodItemRepo.deleteById(food);
+    }
+
+    @Override
+    public Optional<FoodItem> getFoodById(FoodItemId foodItemId) {
+        return foodItemRepo.findById(foodItemId);
     }
 
 
