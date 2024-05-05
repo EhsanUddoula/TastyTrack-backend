@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/food/")
 public class FoodItemController {
