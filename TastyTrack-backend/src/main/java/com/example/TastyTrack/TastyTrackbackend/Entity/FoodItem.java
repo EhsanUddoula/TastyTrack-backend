@@ -25,13 +25,15 @@ public class FoodItem {
     private Double price;
     private String description;
     private String img_url;
+    private String category;
 
-    public FoodItem(FoodItemId foodItemId, String rest_name, Double price, String description, String img_url) {
+    public FoodItem(FoodItemId foodItemId, String rest_name, Double price, String description, String img_url,String category) {
         this.foodItemId = foodItemId;
         this.rest_name = rest_name;
         this.price = price;
         this.description = description;
         this.img_url = img_url;
+        this.category=category;
     }
 //    @ManyToMany
 //    private List<Restaurant> restaurantList=new ArrayList<>();

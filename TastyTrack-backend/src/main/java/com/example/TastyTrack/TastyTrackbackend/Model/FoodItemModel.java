@@ -16,5 +16,6 @@ public class FoodItemModel {
     private Double price;
     private String description;
     private String img_url;
+    private String category;
 
 }
