@@ -43,6 +43,7 @@ public class FoodItemServImp implements FoodItemService {
             model.setDescription(food.getDescription());
             model.setRest_name(food.getRest_name());
             model.setImg_url(food.getImg_url());
+            model.setCategory(food.getCategory());
 
             foodItems.add(model);
         }

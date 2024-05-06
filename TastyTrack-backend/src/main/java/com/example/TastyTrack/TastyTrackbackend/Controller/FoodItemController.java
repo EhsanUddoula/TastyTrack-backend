@@ -25,7 +25,7 @@ public class FoodItemController {
     @Autowired
     private FoodItemService foodItemService;
 
-    private final String FOLDER_PATH="C:/Users/HP/Documents/image/food/";
+    private final String FOLDER_PATH="C:/Users/User/Documents/image/Food";
     private FoodItem foodItem;
 
     @PostMapping("/save")
@@ -35,6 +35,7 @@ public class FoodItemController {
         foodItemModel.setImg_url(fileName);
         file.transferTo(new File(fileName));
         foodItem= foodItemService.save(foodItemModel);
+
         if (foodItem != null) {
             return ResponseEntity.ok("Food Item Added!"); // Return 200 OK with the restaurant data
         } else {
@@ -96,6 +97,7 @@ public class FoodItemController {
         Optional<FoodItem> foodItem1=foodItemService.getFoodById(foodItemId);
 
         if(foodItem1.isPresent()){
+
             String imagePath= foodItem1.get().getImg_url();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.IMAGE_PNG); // Set the appropriate content type (e.g., JPEG, PNG, etc.)
