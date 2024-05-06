@@ -107,7 +107,18 @@ public class FoodItemController {
         }else{
             return null;
         }
-
-
     }
+
+    @GetMapping("/rest/{restId}")
+    public ResponseEntity<List<FoodItemModel>>getAllFoodByName(@PathVariable long restId){
+        List<FoodItemModel> foodItemModels=foodItemService.getAllFoodById(restId);
+
+
+        if(foodItemModels != null){
+            return ResponseEntity.ok(foodItemModels);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

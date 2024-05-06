@@ -38,7 +38,7 @@ public class FoodItemServImp implements FoodItemService {
         for(FoodItem food : foodItemList){
             FoodItemModel model= new FoodItemModel();
             model.setItem(food.getFoodItemId().getItem());
-            model.setRest_id(food.getFoodItemId().getRestaurant_id());
+            model.setRest_id(food.getFoodItemId().getRestaurantId());
             model.setPrice(food.getPrice());
             model.setDescription(food.getDescription());
             model.setRest_name(food.getRest_name());
@@ -58,7 +58,7 @@ public class FoodItemServImp implements FoodItemService {
         for(FoodItem food : foodItemList){
             FoodItemModel model= new FoodItemModel();
             model.setItem(food.getFoodItemId().getItem());
-            model.setRest_id(food.getFoodItemId().getRestaurant_id());
+            model.setRest_id(food.getFoodItemId().getRestaurantId());
             model.setPrice(food.getPrice());
             model.setDescription(food.getDescription());
             model.setRest_name(food.getRest_name());
@@ -104,6 +104,26 @@ public class FoodItemServImp implements FoodItemService {
     @Override
     public Optional<FoodItem> getFoodById(FoodItemId foodItemId) {
         return foodItemRepo.findById(foodItemId);
+    }
+
+    @Override
+    public List<FoodItemModel> getAllFoodById(Long rest_id) {
+        List<FoodItem> foodItemList= foodItemRepo.findByFoodItemId_RestaurantId(rest_id);
+        List<FoodItemModel> foodItems=new ArrayList<>();
+        for(FoodItem food : foodItemList){
+            FoodItemModel model= new FoodItemModel();
+            model.setItem(food.getFoodItemId().getItem());
+            model.setRest_id(food.getFoodItemId().getRestaurantId());
+            model.setPrice(food.getPrice());
+            model.setDescription(food.getDescription());
+            model.setRest_name(food.getRest_name());
+            model.setImg_url(food.getImg_url());
+            model.setCategory(food.getCategory());
+
+            foodItems.add(model);
+        }
+
+        return foodItems;
     }
 
 

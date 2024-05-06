@@ -18,4 +18,6 @@ public interface FoodItemService {
     void deleteFood(FoodItemId food);
 
     Optional<FoodItem> getFoodById(FoodItemId foodItemId);
+
+    List<FoodItemModel> getAllFoodById(Long rest_id);
 }

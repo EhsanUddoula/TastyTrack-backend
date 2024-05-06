@@ -20,6 +20,6 @@ public class FoodItemId implements Serializable {
     @Column(name="Item")
     private String item;
     @Column(name="rest_Id")
-    private Long Restaurant_id;
+    private Long restaurantId;
 
 }

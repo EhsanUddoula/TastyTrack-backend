@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface FoodItemRepo extends JpaRepository<FoodItem,FoodItemId> {
     List<FoodItem> findByFoodItemId_ItemLike(String item);
+    List<FoodItem> findByFoodItemId_RestaurantId(long rest_id);
 }
