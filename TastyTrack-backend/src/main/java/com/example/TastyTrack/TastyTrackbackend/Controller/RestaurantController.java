@@ -26,7 +26,7 @@ public class RestaurantController {
 
 
     @PostMapping("/register")
-    public  String SaveRest(@RequestBody RestaurantModel restaurantModel,
+    public  String SaveRest(@ModelAttribute RestaurantModel restaurantModel,
                             @RequestParam("image") MultipartFile file) throws IOException {
         String fileName=FOLDER_PATH+ file.getOriginalFilename();
         restaurantModel.setImg_url(fileName);
