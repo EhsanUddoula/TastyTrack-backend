@@ -25,7 +25,7 @@ public class FoodItemController {
     @Autowired
     private FoodItemService foodItemService;
 
-    private final String FOLDER_PATH="C:/Users/User/Documents/image/Food";
+    private final String FOLDER_PATH="C:/Users/User/Documents/image/Food/";
     private FoodItem foodItem;
 
     @PostMapping("/save")

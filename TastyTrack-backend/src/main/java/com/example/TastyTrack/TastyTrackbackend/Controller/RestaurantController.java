@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -19,12 +22,19 @@ public class RestaurantController {
     @Autowired(required = true)
     private RestaurantService restaurantService;
     private Restaurant restaurant;
+    private final String FOLDER_PATH="C:/Users/User/Documents/image/Restaurant/";
 
 
     @PostMapping("/register")
-    public  String SaveRest(@RequestBody RestaurantModel restaurantModel, Model model){
+    public  String SaveRest(@RequestBody RestaurantModel restaurantModel,
+                            @RequestParam("image") MultipartFile file) throws IOException {
+        String fileName=FOLDER_PATH+ file.getOriginalFilename();
+        restaurantModel.setImg_url(fileName);
+        file.transferTo(new File(fileName));
+
+
         restaurant=restaurantService.save(restaurantModel);
-        model.addAttribute("message", "Registration Successful...");
+
         return "Done";
     }
 
