@@ -1,10 +1,16 @@
 package com.example.TastyTrack.TastyTrackbackend.Controller;
 
 
+import com.example.TastyTrack.TastyTrackbackend.Entity.FoodItem;
+import com.example.TastyTrack.TastyTrackbackend.Entity.FoodItemId;
 import com.example.TastyTrack.TastyTrackbackend.Entity.Restaurant;
+import com.example.TastyTrack.TastyTrackbackend.Model.RestModelAddress;
 import com.example.TastyTrack.TastyTrackbackend.Model.RestaurantModel;
 import com.example.TastyTrack.TastyTrackbackend.Service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -69,6 +77,35 @@ public class RestaurantController {
             return ResponseEntity.ok(restaurant1);
         }else{
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{address}")
+    public ResponseEntity<List<RestModelAddress>> getByAddress(@PathVariable String address){
+        List<RestModelAddress> restModelAddresses= restaurantService.getRestaurantByAddress(address);
+
+        if(restModelAddresses != null){
+            return ResponseEntity.ok(restModelAddresses);
+        }else{
+            return  ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/image/{restId}")
+    public ResponseEntity<byte[]> downloadImage(@PathVariable("restId") Long restId) throws IOException{
+        RestModelAddress restModelAddress = new RestModelAddress();
+        RestaurantModel restaurant1=restaurantService.getRestaurantById(restId);
+
+        if(restaurant1 != null){
+
+            String imagePath= restaurant1.getImg_url();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_PNG); // Set the appropriate content type (e.g., JPEG, PNG, etc.)
+
+            return new ResponseEntity<>(Files.readAllBytes(new File(imagePath).toPath()), headers, HttpStatus.OK);
+
+        }else{
+            return null;
         }
     }
 }

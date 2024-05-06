@@ -1,6 +1,7 @@
 package com.example.TastyTrack.TastyTrackbackend.Service.Impl;
 
 import com.example.TastyTrack.TastyTrackbackend.Entity.Restaurant;
+import com.example.TastyTrack.TastyTrackbackend.Model.RestModelAddress;
 import com.example.TastyTrack.TastyTrackbackend.Model.RestaurantModel;
 import com.example.TastyTrack.TastyTrackbackend.Repository.RestaurantRepo;
 import com.example.TastyTrack.TastyTrackbackend.Service.RestaurantService;
@@ -70,5 +71,22 @@ public class RestServiceImp implements RestaurantService {
         updatedRestaurant.setPassword(passwordEncoder.encode(model.getPassword()));
 
         return restaurantRepo.save(updatedRestaurant);
+    }
+
+    @Override
+    public List<RestModelAddress> getRestaurantByAddress(String address) {
+        List <Restaurant> restaurants= restaurantRepo.findByAddress(address);
+        List<RestModelAddress> restModelAddresses= new ArrayList<>();
+
+        for(Restaurant restaurant: restaurants){
+            RestModelAddress restModelAddress=new RestModelAddress();
+            restModelAddress.setName(restaurant.getName());
+            restModelAddress.setDescription(restaurant.getDescription());
+            restModelAddress.setImg_url(restaurant.getImg_url());
+            restModelAddress.setRest_Id(restaurant.getRest_Id());
+
+            restModelAddresses.add(restModelAddress);
+        }
+        return restModelAddresses;
     }
 }
