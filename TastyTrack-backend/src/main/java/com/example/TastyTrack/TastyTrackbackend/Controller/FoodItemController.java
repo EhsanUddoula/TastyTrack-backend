@@ -25,7 +25,8 @@ public class FoodItemController {
     @Autowired
     private FoodItemService foodItemService;
 
-    private final String FOLDER_PATH="C:/Users/User/Documents/image/Food/";
+    //private final String FOLDER_PATH="C:/Users/User/Documents/image/Food/";
+    private final String FOLDER_PATH="C:/Users/HP/Documents/image/food/";
     private FoodItem foodItem;
 
     @PostMapping("/save")
@@ -80,6 +81,19 @@ public class FoodItemController {
             return ResponseEntity.ok(updatedFoodItem); // Return 200 OK with the updated food item data
         } else {
             return ResponseEntity.notFound().build(); // Return 404 Not Found if food item not found
+        }
+    }
+
+    @GetMapping("/get/{item}/{restId}")
+    public ResponseEntity<Optional<FoodItem>> getFoodItem(@PathVariable("item") String item,
+                                                @PathVariable("restId") Long restId){
+        FoodItemId foodItemId = new FoodItemId(item, restId);
+        Optional<FoodItem> foodItem1=foodItemService.getFoodById(foodItemId);
+
+        if (foodItem1.isPresent()){
+            return ResponseEntity.ok(foodItem1);
+        }else{
+            return ResponseEntity.notFound().build();
         }
     }
 

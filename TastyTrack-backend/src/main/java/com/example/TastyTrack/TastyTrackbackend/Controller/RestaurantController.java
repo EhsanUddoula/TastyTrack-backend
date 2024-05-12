@@ -30,7 +30,8 @@ public class RestaurantController {
     @Autowired(required = true)
     private RestaurantService restaurantService;
     private Restaurant restaurant;
-    private final String FOLDER_PATH="C:/Users/User/Documents/image/Restaurant/";
+    //private final String FOLDER_PATH="C:/Users/User/Documents/image/Restaurant/";
+    private final String FOLDER_PATH="C:/Users/HP/Documents/image/restaurant/";
 
 
     @PostMapping("/register")
