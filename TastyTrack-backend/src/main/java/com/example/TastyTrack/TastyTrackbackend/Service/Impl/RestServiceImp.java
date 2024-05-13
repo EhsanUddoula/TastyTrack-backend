@@ -89,4 +89,9 @@ public class RestServiceImp implements RestaurantService {
         }
         return restModelAddresses;
     }
+
+    @Override
+    public Restaurant findEmail(String email){
+        return restaurantRepo.findByEmail(email);
+    }
 }

@@ -16,4 +16,6 @@ public interface RestaurantService {
     Restaurant updateRestaurant(long id, RestaurantModel model);
 
     List<RestModelAddress> getRestaurantByAddress(String address);
+
+    Restaurant findEmail(String email);
 }

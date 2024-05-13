@@ -4,6 +4,7 @@ package com.example.TastyTrack.TastyTrackbackend.Controller;
 import com.example.TastyTrack.TastyTrackbackend.Entity.FoodItem;
 import com.example.TastyTrack.TastyTrackbackend.Entity.FoodItemId;
 import com.example.TastyTrack.TastyTrackbackend.Entity.Restaurant;
+import com.example.TastyTrack.TastyTrackbackend.Model.RestLogin;
 import com.example.TastyTrack.TastyTrackbackend.Model.RestModelAddress;
 import com.example.TastyTrack.TastyTrackbackend.Model.RestaurantModel;
 import com.example.TastyTrack.TastyTrackbackend.Service.RestaurantService;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,13 +24,17 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+        RequestMethod.DELETE})
 @RestController
 @RequestMapping("/api/restaurant/")
 public class RestaurantController {
 
     @Autowired(required = true)
     private RestaurantService restaurantService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     private Restaurant restaurant;
     //private final String FOLDER_PATH="C:/Users/User/Documents/image/Restaurant/";
     private final String FOLDER_PATH="C:/Users/HP/Documents/image/restaurant/";
@@ -47,6 +53,19 @@ public class RestaurantController {
         return "Done";
     }
 
+    @PostMapping("/login")
+    public String loginRest(@RequestBody RestLogin restLogin){
+        Restaurant restaurant1=restaurantService.findEmail(restLogin.getEmail());
+        System.out.println(restLogin.getPassword());
+        if(restaurant1 == null){
+            return "Email Not Found";
+        }
+        if (!passwordEncoder.matches(restLogin.getPassword(), restaurant1.getPassword())) {
+            return "Password Not Found";
+        }
+
+        return restaurant1.getEmail();
+    }
     @GetMapping("/getOne/{id}")
     public ResponseEntity<RestaurantModel> getRestaurantById(@PathVariable long id) {
         // Retrieve the restaurant by ID from the service or repository
