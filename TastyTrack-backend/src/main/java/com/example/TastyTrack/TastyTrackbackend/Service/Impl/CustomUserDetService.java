@@ -1,8 +1,9 @@
 package com.example.TastyTrack.TastyTrackbackend.Service.Impl;
 
 
-import com.example.TastyTrack.TastyTrackbackend.Entity.Restaurant;
-import com.example.TastyTrack.TastyTrackbackend.Repository.RestaurantRepo;
+import com.example.TastyTrack.TastyTrackbackend.Entity.User;
+import com.example.TastyTrack.TastyTrackbackend.Repository.UserRepo;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,18 +13,18 @@ import org.springframework.stereotype.Service;
 
 
 @Component
-public class CustomRestDetService implements UserDetailsService {
+public class CustomUserDetService implements UserDetailsService {
 
     @Autowired
-    private RestaurantRepo restaurantRepo;
+    private UserRepo userRepo;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Restaurant restaurant= restaurantRepo.findByEmail(username);
+        User user=userRepo.findByEmail(username);
 
-        if(restaurant == null){
-            throw new UsernameNotFoundException("Restaurant not found!");
+        if(user == null){
+            throw new UsernameNotFoundException("User not found!");
         }
 
-        return new CustomRestDet(restaurant);
+        return new CustomUserDet(user);
     }
 }

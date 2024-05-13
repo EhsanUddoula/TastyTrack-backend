@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -36,5 +37,16 @@ public class UserServiceImp implements UserService {
         }
 
         return userModelList;
+    }
+
+    @Override
+    public UserModel getUserById(Long id) {
+        UserModel userModel=new UserModel();
+        User user=new User();
+        user= userRepo.getReferenceById(id);
+
+        BeanUtils.copyProperties(user,userModel);
+
+        return userModel;
     }
 }

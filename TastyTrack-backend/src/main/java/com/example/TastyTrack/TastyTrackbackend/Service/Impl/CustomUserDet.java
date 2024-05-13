@@ -1,6 +1,6 @@
 package com.example.TastyTrack.TastyTrackbackend.Service.Impl;
 
-import com.example.TastyTrack.TastyTrackbackend.Entity.Restaurant;
+import com.example.TastyTrack.TastyTrackbackend.Entity.User;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,28 +12,24 @@ import java.util.Collection;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomRestDet implements UserDetails {
+public class CustomUserDet implements UserDetails {
 
-    private Restaurant restaurant;
+    private User user;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority= new SimpleGrantedAuthority("RESTAURANT");
+        SimpleGrantedAuthority authority= new SimpleGrantedAuthority("USER");
 
         return Arrays.asList(authority);
     }
 
     @Override
     public String getPassword() {
-        return restaurant.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return restaurant.getEmail();
-    }
-
-    public String getName(){
-        return restaurant.getName();
+        return user.getEmail();
     }
 
     @Override
