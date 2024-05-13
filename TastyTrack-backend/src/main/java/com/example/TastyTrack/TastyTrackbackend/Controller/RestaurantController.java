@@ -41,7 +41,7 @@ public class RestaurantController {
 
 
     @PostMapping("/register")
-    public  String SaveRest(@ModelAttribute RestaurantModel restaurantModel,
+    public  Long SaveRest(@ModelAttribute RestaurantModel restaurantModel,
                             @RequestParam("image") MultipartFile file) throws IOException {
         String fileName=FOLDER_PATH+ file.getOriginalFilename();
         restaurantModel.setImg_url(fileName);
@@ -50,7 +50,7 @@ public class RestaurantController {
 
         restaurant=restaurantService.save(restaurantModel);
 
-        return "Done";
+        return restaurant.getRest_Id();
     }
 
     @PostMapping("/login")

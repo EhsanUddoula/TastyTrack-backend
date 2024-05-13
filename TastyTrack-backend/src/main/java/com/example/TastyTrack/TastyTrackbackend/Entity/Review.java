@@ -30,3 +30,4 @@ public class Review {
     @CreatedDate
     private LocalDateTime time;
 }
+

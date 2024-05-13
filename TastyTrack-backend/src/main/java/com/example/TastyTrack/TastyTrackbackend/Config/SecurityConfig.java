@@ -49,10 +49,12 @@ public class SecurityConfig {
         http.csrf(c -> c.disable())
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/restaurant/register",
                         "api/restaurant/login",
+                        "api/user/login",
                         "/api/food/**",
                         "/api/user/register",
                         "/api/order/**",
-                        "/api/review/**").permitAll().requestMatchers("/api/restaurant/**").hasAuthority("RESTAURANT")
+                        "/api/review/**",
+                         "/api/reservation/**").permitAll().requestMatchers("/api/restaurant/**").hasAuthority("RESTAURANT")
                         .requestMatchers("/api/user/**").hasAuthority("USER"))
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())

@@ -1,15 +1,15 @@
 package com.example.TastyTrack.TastyTrackbackend.Controller;
 
+import com.example.TastyTrack.TastyTrackbackend.Entity.Restaurant;
 import com.example.TastyTrack.TastyTrackbackend.Entity.User;
-import com.example.TastyTrack.TastyTrackbackend.Model.RestModelAddress;
-import com.example.TastyTrack.TastyTrackbackend.Model.RestaurantModel;
-import com.example.TastyTrack.TastyTrackbackend.Model.UserModel;
+import com.example.TastyTrack.TastyTrackbackend.Model.*;
 import com.example.TastyTrack.TastyTrackbackend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +26,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     //private final String FOLDER_PATH="C:/Users/User/Documents/image/user/";
     private final String FOLDER_PATH="C:/Users/HP/Documents/image/user/";
 
@@ -41,6 +44,20 @@ public class UserController {
         }else{
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/login")
+    public String loginRest(@RequestBody UserLogin userLogin){
+        User user=userService.findEmail(userLogin.getEmail());
+        System.out.println(userLogin.getPassword());
+        if(user == null){
+            return "Email Not Found";
+        }
+        if (!passwordEncoder.matches(userLogin.getPassword(), user.getPassword())) {
+            return "Password Not Found";
+        }
+
+        return user.getEmail();
     }
 
     @GetMapping("/get")

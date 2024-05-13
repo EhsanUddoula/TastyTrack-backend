@@ -49,4 +49,9 @@ public class UserServiceImp implements UserService {
 
         return userModel;
     }
+
+    @Override
+    public User findEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
 }
