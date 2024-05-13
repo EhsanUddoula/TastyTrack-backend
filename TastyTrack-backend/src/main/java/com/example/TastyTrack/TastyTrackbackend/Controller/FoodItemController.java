@@ -18,7 +18,8 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+        RequestMethod.DELETE})
 @RestController
 @RequestMapping("/api/food/")
 public class FoodItemController {
