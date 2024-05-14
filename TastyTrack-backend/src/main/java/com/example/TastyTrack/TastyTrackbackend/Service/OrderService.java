@@ -13,4 +13,6 @@ public interface OrderService {
     List<OrderModel> getAllOrder();
 
     Order updateOrder(Long id, OrderModel orderModel);
+
+    List<OrderModel> getAllByRest(Long restId);
 }

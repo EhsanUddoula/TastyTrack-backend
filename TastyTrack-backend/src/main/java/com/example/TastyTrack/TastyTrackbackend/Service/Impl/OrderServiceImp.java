@@ -54,4 +54,18 @@ public class OrderServiceImp implements OrderService {
 
         return orderRepo.save(model);
     }
+
+    @Override
+    public List<OrderModel> getAllByRest(Long restId) {
+        List<OrderModel>orderModelList=new ArrayList<>();
+        List<Order> orderList= orderRepo.findByRestId(restId);
+
+        for(Order order: orderList){
+            OrderModel orderModel=new OrderModel();
+            BeanUtils.copyProperties(order,orderModel);
+            orderModelList.add(orderModel);
+        }
+
+        return orderModelList;
+    }
 }

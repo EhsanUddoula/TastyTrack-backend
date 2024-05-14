@@ -27,9 +27,20 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/get")
+    @GetMapping("/getAll")
     public ResponseEntity<List<OrderModel>> getAllOrderList(){
         List<OrderModel> orderModelList= orderService.getAllOrder();
+
+        if(orderModelList.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(orderModelList);
+        }
+    }
+
+    @GetMapping("/get/{restId}")
+    public ResponseEntity<List<OrderModel>> getOrderListRest(@PathVariable("restId") Long restId){
+        List<OrderModel> orderModelList= orderService.getAllByRest(restId);
 
         if(orderModelList.isEmpty()){
             return ResponseEntity.notFound().build();
