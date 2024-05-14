@@ -54,7 +54,8 @@ public class SecurityConfig {
                         "/api/user/register",
                         "/api/order/**",
                         "/api/review/**",
-                         "/api/reservation/**").permitAll().requestMatchers("/api/restaurant/**").hasAuthority("RESTAURANT")
+                         "/api/reservation/**",
+                         "/api/admin/**").permitAll().requestMatchers("/api/restaurant/**").hasAuthority("RESTAURANT")
                         .requestMatchers("/api/user/**").hasAuthority("USER"))
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
