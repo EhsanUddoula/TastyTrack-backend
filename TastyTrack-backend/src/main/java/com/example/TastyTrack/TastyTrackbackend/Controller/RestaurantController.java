@@ -4,6 +4,7 @@ package com.example.TastyTrack.TastyTrackbackend.Controller;
 import com.example.TastyTrack.TastyTrackbackend.Entity.FoodItem;
 import com.example.TastyTrack.TastyTrackbackend.Entity.FoodItemId;
 import com.example.TastyTrack.TastyTrackbackend.Entity.Restaurant;
+import com.example.TastyTrack.TastyTrackbackend.Entity.User;
 import com.example.TastyTrack.TastyTrackbackend.Model.RestLogin;
 import com.example.TastyTrack.TastyTrackbackend.Model.RestModelAddress;
 import com.example.TastyTrack.TastyTrackbackend.Model.RestaurantModel;
@@ -127,5 +128,14 @@ public class RestaurantController {
         }else{
             return null;
         }
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<Long> getUser(@PathVariable("email") String email){
+        Restaurant restaurant1=restaurantService.findEmail(email);
+        if(restaurant1 != null){
+            return ResponseEntity.ok(restaurant1.getRest_Id());
+        }
+        return ResponseEntity.notFound().build();
     }
 }

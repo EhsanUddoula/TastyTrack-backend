@@ -18,7 +18,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+        RequestMethod.DELETE})
 
 @RestController
 @RequestMapping("/api/user/")
@@ -86,5 +87,14 @@ public class UserController {
         }else{
             return null;
         }
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<Long> getUser(@PathVariable("email") String email){
+        User user=userService.findEmail(email);
+        if(user != null){
+            return ResponseEntity.ok(user.getUser_id());
+        }
+        return ResponseEntity.notFound().build();
     }
 }

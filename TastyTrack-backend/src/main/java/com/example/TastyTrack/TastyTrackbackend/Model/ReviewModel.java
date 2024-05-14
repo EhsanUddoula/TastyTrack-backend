@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class ReviewModel {
     private long review_id;
     private long user_id;
-    private long rest_id;
+    private long restId;
     private String item;
     private String review;
     private double rating;
