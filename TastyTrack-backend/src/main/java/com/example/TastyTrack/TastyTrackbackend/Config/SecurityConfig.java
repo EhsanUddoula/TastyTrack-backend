@@ -48,7 +48,7 @@ public class SecurityConfig {
 
         http.csrf(c -> c.disable())
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/restaurant/register",
-                        "api/restaurant/login",
+                        "api/restaurant/**",
                         "api/user/login",
                         "/api/food/**",
                         "/api/user/register",

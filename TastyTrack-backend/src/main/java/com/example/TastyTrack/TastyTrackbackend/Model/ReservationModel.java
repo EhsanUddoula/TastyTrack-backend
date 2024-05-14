@@ -16,9 +16,10 @@ import java.sql.Time;
 public class ReservationModel {
     private long reservationId;
     private long userId;
+    private long restId;
     private String email;
     private Date date;
-    private Time time;
+    private String time;
     private int no_of_people;
     private String name;
 }

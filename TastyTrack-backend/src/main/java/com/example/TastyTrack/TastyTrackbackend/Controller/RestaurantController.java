@@ -101,8 +101,8 @@ public class RestaurantController {
         }
     }
 
-    @GetMapping("/{address}")
-    public ResponseEntity<List<RestModelAddress>> getByAddress(@PathVariable String address){
+    @GetMapping("/location/{address}")
+    public ResponseEntity<List<RestModelAddress>> getByAddress(@PathVariable("address") String address){
         List<RestModelAddress> restModelAddresses= restaurantService.getRestaurantByAddress(address);
 
         if(restModelAddresses != null){
