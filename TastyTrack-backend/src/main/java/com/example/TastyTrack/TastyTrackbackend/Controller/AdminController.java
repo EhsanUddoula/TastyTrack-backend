@@ -79,4 +79,13 @@ public class AdminController {
             return null;
         }
     }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<Long> getAdmin(@PathVariable("email") String email){
+        Admin admin=adminService.findEmail(email);
+        if(admin != null){
+            return ResponseEntity.ok(admin.getAdmin_id());
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
