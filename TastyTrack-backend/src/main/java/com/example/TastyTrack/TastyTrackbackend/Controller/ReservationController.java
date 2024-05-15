@@ -41,4 +41,15 @@ public class ReservationController {
             return ResponseEntity.ok(reservationModels);
         }
     }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<ReservationModel>> getReservation(){
+        List<ReservationModel> reservationModels=reservationService.findAllReservation();
+
+        if(reservationModels.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(reservationModels);
+        }
+    }
 }

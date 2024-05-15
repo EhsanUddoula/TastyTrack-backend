@@ -40,5 +40,19 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationModels;
     }
 
+    @Override
+    public List<ReservationModel> findAllReservation() {
+        List<ReservationModel> reservationModels=new ArrayList<>();
+        List<Reservation> reservations=reservationRepo.findAll();
+
+        for(Reservation reservation: reservations){
+            ReservationModel reservationModel=new ReservationModel();
+            BeanUtils.copyProperties(reservation,reservationModel);
+            reservationModels.add(reservationModel);
+        }
+
+        return reservationModels;
+    }
+
 
 }

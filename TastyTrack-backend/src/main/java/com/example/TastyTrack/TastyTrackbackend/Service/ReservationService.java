@@ -8,4 +8,6 @@ import java.util.List;
 public interface ReservationService {
     Reservation save(ReservationModel reservationModel);
     List<ReservationModel> findByRestId(Long restId);
+
+    List<ReservationModel> findAllReservation();
 }
