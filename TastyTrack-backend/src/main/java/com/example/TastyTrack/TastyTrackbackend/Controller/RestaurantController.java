@@ -8,6 +8,7 @@ import com.example.TastyTrack.TastyTrackbackend.Entity.User;
 import com.example.TastyTrack.TastyTrackbackend.Model.RestLogin;
 import com.example.TastyTrack.TastyTrackbackend.Model.RestModelAddress;
 import com.example.TastyTrack.TastyTrackbackend.Model.RestaurantModel;
+import com.example.TastyTrack.TastyTrackbackend.Model.UserModel;
 import com.example.TastyTrack.TastyTrackbackend.Service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -53,7 +54,16 @@ public class RestaurantController {
 
         return restaurant.getRest_Id();
     }
+    @GetMapping("/get")
+    public ResponseEntity<List<RestaurantModel>> getAll(){
+        List<RestaurantModel> userModelList=restaurantService.getAllRestaurant();
 
+        if(userModelList.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(userModelList);
+        }
+    }
     @PostMapping("/login")
     public String loginRest(@RequestBody RestLogin restLogin){
         Restaurant restaurant1=restaurantService.findEmail(restLogin.getEmail());

@@ -13,6 +13,8 @@ public interface RestaurantService {
     RestaurantModel getRestaurantById(long id);
     List<RestaurantModel> getRestaurantByName(String name);
 
+    List<RestaurantModel> getAllRestaurant();
+
     Restaurant updateRestaurant(long id, RestaurantModel model);
 
     List<RestModelAddress> getRestaurantByAddress(String address);

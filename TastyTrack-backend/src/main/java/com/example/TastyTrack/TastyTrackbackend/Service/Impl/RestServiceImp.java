@@ -1,8 +1,10 @@
 package com.example.TastyTrack.TastyTrackbackend.Service.Impl;
 
 import com.example.TastyTrack.TastyTrackbackend.Entity.Restaurant;
+import com.example.TastyTrack.TastyTrackbackend.Entity.User;
 import com.example.TastyTrack.TastyTrackbackend.Model.RestModelAddress;
 import com.example.TastyTrack.TastyTrackbackend.Model.RestaurantModel;
+import com.example.TastyTrack.TastyTrackbackend.Model.UserModel;
 import com.example.TastyTrack.TastyTrackbackend.Repository.RestaurantRepo;
 import com.example.TastyTrack.TastyTrackbackend.Service.RestaurantService;
 import org.springframework.beans.BeanUtils;
@@ -52,6 +54,20 @@ public class RestServiceImp implements RestaurantService {
         }
 
         return restaurantModels;
+    }
+
+    @Override
+    public List<RestaurantModel> getAllRestaurant() {
+        List<RestaurantModel> userModelList=new ArrayList<>();
+        List<Restaurant> userList=restaurantRepo.findAll();
+
+        for(Restaurant user: userList){
+            RestaurantModel userModel=new RestaurantModel();
+            BeanUtils.copyProperties(user,userModel);
+            userModelList.add(userModel);
+        }
+
+        return userModelList;
     }
 
     @Override
